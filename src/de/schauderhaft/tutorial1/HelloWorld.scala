@@ -4,12 +4,14 @@ object HelloWorld {
     def main(args: Array[String]) {
         println("Hello World")
 
-        val euro = new Money("Euro", 100)
+        val euro = Money("Euro", 100)
 
         println("Euros: " + euro)
+
+        val someMoreMoney = Money("Euro", 100)
+
+        println("Are they the same? " + (euro == someMoreMoney))
     }
 }
 
-class Money(val currency: String, val amount: Int) {
-    override def toString = amount + " " + currency
-}
+case class Money(val currency: String, val amount: Int)
