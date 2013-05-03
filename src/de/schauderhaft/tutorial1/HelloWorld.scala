@@ -6,7 +6,10 @@ object HelloWorld {
 
         val euro = new Money("Euro", 100)
 
+        println("Euros: " + euro)
     }
 }
 
-class Money(val currency: String, val amount: Int)
+class Money(val currency: String, val amount: Int) {
+    override def toString = amount + " " + currency
+}
