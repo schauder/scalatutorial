@@ -19,11 +19,17 @@ object HelloWorld {
     }
 }
 
-case class Money(val currency: String, val amount: Int) {
-    // + is a valid method name
-    def +(m2: Money): Money =
-        if (currency == m2.currency)
-            Money(currency, amount + m2.amount)
-        else
-            throw new IllegalArgumentException("Can't add money of different currencies yet")
+trait Money {
+    def +(m2: Money): Money
+}
+
+object Money {
+    def apply(currency: String, amount: Int) = SingleCurrency(currency, amount)
+}
+
+case class SingleCurrency(val currency: String, val amount: Int) extends Money {
+    def +(m: Money): Money = m match {
+        case scm: SingleCurrency if (currency == scm.currency) => Money(currency, amount + scm.amount)
+        case _ => throw new IllegalArgumentException("Can't add money of different currencies yet")
+    }
 }
