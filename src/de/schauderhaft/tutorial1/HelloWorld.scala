@@ -22,6 +22,8 @@ object HelloWorld {
 
         println("adding " + (bag + euro))
         println("adding " + (euro + bag))
+
+        println(Money("Euro", 10) + Money("Dollar", 15))
     }
 }
 
@@ -35,7 +37,10 @@ object Money {
 
 case class SingleCurrency(val currency: String, val amount: Int) extends Money {
     def +(m: Money): Money = m match {
-        case scm: SingleCurrency if (currency == scm.currency) => Money(currency, amount + scm.amount)
+        case scm: SingleCurrency => if (currency == scm.currency)
+            Money(currency, amount + scm.amount)
+        else
+            MoneyBag(this, scm)
         case mb: MoneyBag => mb + (this)
         case _ => throw new IllegalArgumentException("still can't add SingleCurrencies with different currency")
     }
