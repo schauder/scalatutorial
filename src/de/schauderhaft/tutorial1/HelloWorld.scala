@@ -54,7 +54,7 @@ object MoneyBag {
 case class MoneyBag(ms: Map[String, Int]) extends Money {
 
     def +(m: Money) = m match {
-        case sc: SingleCurrency => MoneyBag(ms + ((sc.currency, ms.getOrElse(sc.currency, 0) + sc.amount)))
+        case sc: SingleCurrency => MoneyBag(ms + (sc.currency -> (ms.getOrElse(sc.currency, 0) + sc.amount)))
         case _ => this
     }
 
