@@ -4,11 +4,11 @@ object HelloWorld {
     def main(args: Array[String]) {
         println("Hello World")
 
-        val euro = Money("Euro", 100)
+        val euro = Money(100, "Euro")
 
         println("Euros: " + euro)
 
-        val someMoreMoney = Money("Euro", 100)
+        val someMoreMoney = Money(100, "Euro")
 
         println("Are they the same? " + (euro == someMoreMoney))
 
@@ -17,33 +17,36 @@ object HelloWorld {
 
         println("the sum is: " + lots)
 
-        val bag = MoneyBag(Money("Euro", 10), Money("Dollar", 50))
+        val bag = MoneyBag(Money(10, "Euro"), Money(50, "Dollar"))
         println("a Bag of money: " + bag)
 
         println("adding " + (bag + euro))
         println("adding " + (euro + bag))
 
-        println(Money("Euro", 10) + Money("Dollar", 15))
+        println(Money(10, "Euro") + Money(15, "Dollar"))
     }
 }
 
 trait Money {
     def +(m2: Money): Money
+    def plus(m: Money): Money = this.+(m)
 }
 
 object Money {
-    def apply(currency: String, amount: Int) = SingleCurrency(currency, amount)
+    def apply(amount: Int, currency: String) = SingleCurrency(currency, amount)
 }
 
 case class SingleCurrency(val currency: String, val amount: Int) extends Money {
     def +(m: Money): Money = m match {
         case scm: SingleCurrency => if (currency == scm.currency)
-            Money(currency, amount + scm.amount)
+            Money(amount + scm.amount, currency)
         else
             MoneyBag(this, scm)
         case mb: MoneyBag => mb + (this)
         case _ => throw new IllegalArgumentException("still can't add SingleCurrencies with different currency")
     }
+
+    override def toString() = amount + currency
 }
 
 object MoneyBag {
@@ -63,4 +66,9 @@ case class MoneyBag(ms: Map[String, Int]) extends Money {
         case _ => this
     }
 
+}
+
+object Currencies {
+    def US(amount: Int) = Money(amount, "USD")
+    def Euro(amount: Int) = Money(amount, "Euro")
 }
