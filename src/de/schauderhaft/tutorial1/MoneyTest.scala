@@ -64,4 +64,11 @@ class MoneyTest extends FunSuite {
         import Currencies._
         MoneyBag(Euro(12), US(100), Euro(23)) should be(MoneyBag(US(100), Euro(35)))
     }
+
+    // create a trait with the + method
+    test("Money of different currency can be added and results in a MoneyBag") {
+        import Currencies._
+        Euro(23) + US(19) should be(MoneyBag(Euro(23), US(19)))
+    }
+
 }
