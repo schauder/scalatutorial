@@ -54,4 +54,14 @@ class MoneyTest extends FunSuite {
         Euro(23) + Euro(19) should be(Euro(42))
     }
 
+    test("a money bag should be independent of order of elements") {
+        import Currencies._
+        MoneyBag(Euro(12), US(100)) should be(MoneyBag(US(100), Euro(12)))
+    }
+
+    // groupby
+    test("a money bag should add elements of same currency") {
+        import Currencies._
+        MoneyBag(Euro(12), US(100), Euro(23)) should be(MoneyBag(US(100), Euro(35)))
+    }
 }
