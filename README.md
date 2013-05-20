@@ -40,6 +40,34 @@ Scala erlaubt unterschiedliche Zugänge zur Sprache:
 1. Neues Projekt in der IDE anlegen
 2. Den Scala Interpreter View in Eclipse öffnen. (Dieses Tutorial verwendet den Interpreter in der IDE um nicht zwischen unterschiedlichen Tools wechseln zu müssen. Scala bringt seine eigenen Kommandozeilen basierte REPL mit)
 3. Verschieden Ausdrücke ausprobieren. z.B.
+    * Addition zweier ganzer Zahlen
+    * zwei Dezimalzahlen durch einander teilen
+    * Strings aneinander hängen
+    * Boolsche Ausdrücke
+    
+Es funktionieren die aus Java bekannten Literale. Strings können auch wie folgt geschrieben werden:
+
+    """Dies ist ein "String" der doppelte Anführungszeichen enthält"""
+    
+Solche Strings können auch über mehrere Zeilen gehen.
+
+Ergebnisse von Ausdrücken werden in der REPL Values / Werten zugeordnet, die in folgenden Ausdrücken wieder verwendet werden können.
+
+    > 3+ 5
+    res0: Int = 8
+
+
+    > 3.4 / 2
+    res1: Double = 1.7
+
+    > res0 * res1
+    res2: Double = 13.6
+
+Dies kann mit dem Schlüsselwort `val` auch explizit geschehen, um nettere Namen zu erhalten:
+
+    > val ageInDays = 42*365
+    ageInDays: Int = 15330
+
 ## Lügen die ich erzählt habe ##
 
 1. Scala gibt es nicht nur für die JVM, sondern auch für .Net ... in welchem Zustand es dort ist, muss jeder den es interessiert selber rausfinden.
