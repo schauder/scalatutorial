@@ -68,6 +68,34 @@ Dies kann mit dem Schlüsselwort `val` auch explizit geschehen, um nettere Namen
     > val ageInDays = 42*365
     ageInDays: Int = 15330
 
+## Typannotationen ##
+
+Man beachte, dass wir keinen einzigen Datentypen angegeben haben, Scala aber dennoch "weiß" welchen Datentypen die Werte haben sollen. Wenn gewünscht können Datentypen nach dem Valuenamen durch einen Doppelpunkt getrennt angegeben werden. 
+
+    > val name : String = "Jens Schauder"
+    name: String = Jens Schauder
+
+Inkompatible Datentypen führen dabei zu einem Fehler
+
+    > val age : Int = "Jens Schauder"
+    <console>:7: error: type mismatch;
+     found   : java.lang.String("Jens Schauder")
+     required: Int
+           val age : Int = "Jens Schauder"
+                           ^
+
+## Collections ##
+
+Die Collections API von Scala ist ein wunderwerk der Technik und besteht us vielen Dutzend Klassen. Wir schauen hier nur die wichtigsten immutable Varianten an. 
+
+    > Set("Homer", "Marge", "Bart", "Maggie", "Lisa")
+
+
+## Funktion ##
+## Tupel ##
+## Option ##
+## `val` vs `var` ##
+
 ## Lügen die ich erzählt habe ##
 
 1. Scala gibt es nicht nur für die JVM, sondern auch für .Net ... in welchem Zustand es dort ist, muss jeder den es interessiert selber rausfinden.
