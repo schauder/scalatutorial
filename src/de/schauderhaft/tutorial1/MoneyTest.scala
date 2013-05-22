@@ -71,4 +71,10 @@ class MoneyTest extends FunSuite {
         Euro(23) + US(19) should be(MoneyBag(Euro(23), US(19)))
     }
 
+    test("adding MoneyBags") {
+        import Currencies._
+        MoneyBag(Euro(23), US(19)) + MoneyBag(Euro(24), Yen(190)) should be(
+            MoneyBag(Euro(47), US(19), Yen(190)))
+    }
+
 }

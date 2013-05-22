@@ -57,12 +57,14 @@ object MoneyBag {
     private def add(ms: Map[String, Int], sc: SingleCurrency): Map[String, Int] =
         ms + ((sc.currency, sc.amount + ms.getOrElse(sc.currency, 0)))
 
+    private def pair2SingleCurrency(t: (String, Int)) = SingleCurrency(t._1, t._2)
 }
 
 case class MoneyBag(ms: Map[String, Int]) extends Money {
 
     def +(m: Money) = m match {
         case sc: SingleCurrency => MoneyBag(ms + (sc.currency -> (ms.getOrElse(sc.currency, 0) + sc.amount)))
+        case mb: MoneyBag => MoneyBag((ms.map(MoneyBag.pair2SingleCurrency(_)).toSeq ++ mb.ms.map(MoneyBag.pair2SingleCurrency(_)): _*))
         case _ => this
     }
 
@@ -71,4 +73,5 @@ case class MoneyBag(ms: Map[String, Int]) extends Money {
 object Currencies {
     def US(amount: Int) = Money(amount, "USD")
     def Euro(amount: Int) = Money(amount, "Euro")
+    def Yen(amount: Int) = Money(amount, "Yen")
 }
