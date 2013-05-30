@@ -93,7 +93,7 @@ Inkompatible Datentypen führen dabei zu einem Fehler
 
 Die Collections API von Scala ist ein Wunderwerk der Technik und besteht us vielen Dutzend Klassen. Wir schauen hier nur die wichtigsten immutable Varianten an. 
 
-    > val simpsons = Seq("Homer", "Marge", "Bart", "Lis", "Maggie")
+    > val simpsons = Seq("Homer", "Marge", "Bart", "Lisa", "Maggie")
     simpsons: List[java.lang.String] = List(Homer, Marge, Bart, Lis, Maggie)
 
 Wie man sieht muss man keine Typen angeben.
@@ -101,38 +101,38 @@ Wie man sieht muss man keine Typen angeben.
 Collections sind unveränderlich
 
     > simpsons + "Grand Pa"
-    res2: List[java.lang.String] = List(Homer, Marge, Bart, Lis, Maggie, Grand Pa)
+    res2: List[java.lang.String] = List(Homer, Marge, Bart, Lisa, Maggie, Grand Pa)
 
     > simpsons
-    res3: List[java.lang.String] = List(Homer, Marge, Bart, Lis, Maggie)
+    res3: List[java.lang.String] = List(Homer, Marge, Bart, Lisa, Maggie)
 
 	
     > simpsons :+ List()
-    res4: List[java.lang.Object] = List(Homer, Marge, Bart, Lis, Maggie, List())
+    res4: List[java.lang.Object] = List(Homer, Marge, Bart, Lisa, Maggie, List())
 	
 ## Funktionen ##
 
 Scala als Hybrid Sprache hat eine gute Unterstützung für Funktionen. Ein einfaches Beispiel für die Verwendung von Funktionen
  
     > simpsons.map(_ + " Simpson")
-    res8: List[java.lang.String] = List(Homer Simpson, Marge Simpson, Bart Simpson, Lis Simpson, Maggie Simpson)
+    res8: List[java.lang.String] = List(Homer Simpson, Marge Simpson, Bart Simpson, Lisa Simpson, Maggie Simpson)
 
 Der Unterstrich ist dabei das Argument zur Funktion. Der Unterstrich kann verwendet werden, wenn jedes Argument, genau einmal verwendet wird und in genau der Reihenfolge, in der sie auch in der Parameterliste stehen. Die vollständigere Schreibweise ist die mit expliziter deklaration der Argumente:
 
     > simpsons.map( (n) => n + " Simpson") 
-    res11: List[java.lang.String] = List(Homer Simpson, Marge Simpson, Bart Simpson, Lis Simpson, Maggie Simpson)
+    res11: List[java.lang.String] = List(Homer Simpson, Marge Simpson, Bart Simpson, Lisa Simpson, Maggie Simpson)
 	
 Natürlich kann man auch Typparameter angeben
 
     > simpsons.map( (n : String) => n + " Simpson") 
-	res11: List[java.lang.String] = List(Homer Simpson, Marge Simpson, Bart Simpson, Lis Simpson, Maggie Simpson)
+	res11: List[java.lang.String] = List(Homer Simpson, Marge Simpson, Bart Simpson, Lisa Simpson, Maggie Simpson)
 
 Funktionen sind ganz normale Objekte in Skala und können auch einem Value zugeordnet werden:
 
     > val addSurname = (n : String) => n + " Simpson"
 	addSurname: String => java.lang.String = <function1>
 	> simpsons.map(addSurname)
-	res11: List[java.lang.String] = List(Homer Simpson, Marge Simpson, Bart Simpson, Lis Simpson, Maggie Simpson)
+	res11: List[java.lang.String] = List(Homer Simpson, Marge Simpson, Bart Simpson, Lisa Simpson, Maggie Simpson)
 	
 Der Typ einer Funktion wird  mit einem Doppelpfeil geschrieben: 
 
@@ -167,11 +167,11 @@ Wir lernen: zu viele in einander verschachtelte Funktionsdefinitionen und Deklar
 	
 	Vergleiche es mit dem Ergebnis von `numbers.flatMap(_ to 4)`?
 	
+## Option ##
+	
 ## Tupel ##
 
 Of will man nicht einen sondern mehrere Werte zurückgeben. Natürlich kann man sich eine eigene Klasse dazu schreiben. Scala bietet aber schon vorgefertigte Klassen: Tupel. Tupel werden geschrieben wie in der Mathematik:
-
-
 
     > (3, "Lara", Seq("Tochter", "schlau","süß", "selbstbewusst"))
     res2: (Int, java.lang.String, Seq[java.lang.String]) = (3,Lara,List(Tochter, schlau, süß, selbstbewusst))
@@ -185,12 +185,18 @@ Tupel gibt es von 2 - 22 Elemente. Auf die einzelnen Element kann man einbasiert
 	
 Warnung, in einigen Situationen möchte man ein Tupel schreiben, Scala interpretiert die Klammern aber als Klammern eines anderen Konstrukts: Klammern um Typdeklarationen, um eine Parameterliste oder ähnliches. Dann benötigt man doppelte Klammern: `(("blah", 23, true))`
 
-## Option ##
-## `val` vs `var` ##
 ## Sets Maps ##
+
+
+## for Comprehension ##
+
+Die Kombination von `map´, ´flatMap´ und ´filter´ ist ziemlich mächtig und wird sehr häufig benötigt. Leider leidet die Lesbarkeit, wenn man davon zu viele aneinander hängt. Dafür gibt es for Comprehensions. Diese sehen aus wie eine For Schleife auf Steroiden. Es ist aber keine Schleife! Es sollten keine relevanten Seiteneffekte verwendet werden!
+
+
 ## Klassen ##
 ## Objekte ##
 ## Case Classes ##
+## `val` vs `var` ##
 
 ## Lügen, Halbwarheiten und Ergänzungen ##
 
