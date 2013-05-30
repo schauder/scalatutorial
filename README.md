@@ -68,6 +68,11 @@ Dies kann mit dem Schlüsselwort `val` auch explizit geschehen, um nettere Namen
     > val ageInDays = 42*365
     ageInDays: Int = 15330
 
+Es gibt keine Unterscheidung zwischen Objekten und Primitiven in Scala. Operatoren sind einfach nur eigenartig benannte Methoden:
+
+    > 23.+(5)
+    res1: Double = 28.0
+	
 ## Typannotationen ##
 
 Man beachte, dass wir keinen einzigen Datentypen angegeben haben, Scala aber dennoch "weiß" welchen Datentypen die Werte haben sollen. Wenn gewünscht können Datentypen nach dem Valuenamen durch einen Doppelpunkt getrennt angegeben werden. 
@@ -84,18 +89,83 @@ Inkompatible Datentypen führen dabei zu einem Fehler
            val age : Int = "Jens Schauder"
                            ^
 
-## Collections ##
+## Collections##
 
-Die Collections API von Scala ist ein wunderwerk der Technik und besteht us vielen Dutzend Klassen. Wir schauen hier nur die wichtigsten immutable Varianten an. 
+Die Collections API von Scala ist ein Wunderwerk der Technik und besteht us vielen Dutzend Klassen. Wir schauen hier nur die wichtigsten immutable Varianten an. 
 
-    > Set("Homer", "Marge", "Bart", "Maggie", "Lisa")
+    > val simpsons = Seq("Homer", "Marge", "Bart", "Lis", "Maggie")
+    simpsons: List[java.lang.String] = List(Homer, Marge, Bart, Lis, Maggie)
 
+Wie man sieht muss man keine Typen angeben.
 
-## Funktion ##
+Collections sind unveränderlich
+
+    > simpsons + "Grand Pa"
+    res2: List[java.lang.String] = List(Homer, Marge, Bart, Lis, Maggie, Grand Pa)
+
+    > simpsons
+    res3: List[java.lang.String] = List(Homer, Marge, Bart, Lis, Maggie)
+
+	
+    > simpsons :+ List()
+    res4: List[java.lang.Object] = List(Homer, Marge, Bart, Lis, Maggie, List())
+	
+## Funktionen ##
+
+Scala als Hybrid Sprache hat eine gute Unterstützung für Funktionen. Ein einfaches Beispiel für die Verwendung von Funktionen
+ 
+    > simpsons.map(_ + " Simpson")
+    res8: List[java.lang.String] = List(Homer Simpson, Marge Simpson, Bart Simpson, Lis Simpson, Maggie Simpson)
+
+Der Unterstrich ist dabei das Argument zur Funktion. Der Unterstrich kann verwendet werden, wenn jedes Argument, genau einmal verwendet wird und in genau der Reihenfolge, in der sie auch in der Parameterliste stehen. Die vollständigere Schreibweise ist die mit expliziter deklaration der Argumente:
+
+    > simpsons.map( (n) => n + " Simpson") 
+    res11: List[java.lang.String] = List(Homer Simpson, Marge Simpson, Bart Simpson, Lis Simpson, Maggie Simpson)
+	
+Natürlich kann man auch Typparameter angeben
+
+    > simpsons.map( (n : String) => n + " Simpson") 
+	res11: List[java.lang.String] = List(Homer Simpson, Marge Simpson, Bart Simpson, Lis Simpson, Maggie Simpson)
+
+Funktionen sind ganz normale Objekte in Skala und können auch einem Value zugeordnet werden:
+
+    > val addSurname = (n : String) => n + " Simpson"
+	addSurname: String => java.lang.String = <function1>
+	> simpsons.map(addSurname)
+	res11: List[java.lang.String] = List(Homer Simpson, Marge Simpson, Bart Simpson, Lis Simpson, Maggie Simpson)
+	
+Der Typ einer Funktion wird  mit einem Doppelpfeil geschrieben: 
+
+    Int => Int
+    (Int, Int) => String
+    () => String
+
+Diese Notation ist equivalent zu einer normalen Klassen basierten Notation:
+
+    Function1[Int, Int]
+    Function2[Int, Int, String]
+    Function0[String]
+
+Wir können natürlich auch selbst Funktionen schreiben die Funktionen als Argumente bekommen.
+	
+	val twice :(String => String) => (String => String) = f => x => f(f(x))
+
+Wir lernen: zu viele in einander verschachtelte Funktionsdefinitionen und Deklaration können ganz schön verwirrend sein
+	
+### Aufgabe ###
+
+Die Methode `filter` auf Listen nimmt einen Funktion vom Typ der Listenelemente auf Boolean und liefert eine Liste mit den Listenelementen für die, die Funktion 'true' ergibt. Erzeuge damit eine Liste der Simpsons deren Namen länger als 4 Buchstaben sind.
+
+Die Methode `groupBy` nimmt eine Funktion vom Listenelementtypen auf einen beliebigen anderen Typen. Was liefert diese Methode als Ergebnis? Versuche es zum Beispiel mit der Funktion die die Länge des Namens zurückgibt, oder mit der Funktion aus der vorrigen Aufgabe.
+	
 ## Tupel ##
 ## Option ##
 ## `val` vs `var` ##
+## Sets Maps ##
+## Klassen ##
 
-## Lügen die ich erzählt habe ##
+## Lügen, Halbwarheiten und Ergänzungen ##
 
 1. Scala gibt es nicht nur für die JVM, sondern auch für .Net ... in welchem Zustand es dort ist, muss jeder den es interessiert selber rausfinden.
+2. Es gibt auch mutable collections, aber die ignorieren wir hier, da immutable Collections in einem gewissen Sinne viel mächtiger sind.
+3. Seq erzeugt einfach verkettete Listen. Der :+ Operator sollte auf solchen Listen vermieden werden, da er sehr ineffizient ist. Man verwendet besser +: (prepend) oder die Klasse Vector
