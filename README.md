@@ -148,15 +148,24 @@ Diese Notation ist equivalent zu einer normalen Klassen basierten Notation:
 
 Wir können natürlich auch selbst Funktionen schreiben die Funktionen als Argumente bekommen.
 	
-	val twice :(String => String) => (String => String) = f => x => f(f(x))
+	> val twice :(String => String) => (String => String) = f => x => f(f(x))
 
-Wir lernen: zu viele in einander verschachtelte Funktionsdefinitionen und Deklaration können ganz schön verwirrend sein
+Wir lernen: zu viele in einander verschachtelte Funktionsdefinitionen und Deklaration können ganz schön verwirrend sein.
 	
 ### Aufgabe ###
 
-Die Methode `filter` auf Listen nimmt einen Funktion vom Typ der Listenelemente auf Boolean und liefert eine Liste mit den Listenelementen für die, die Funktion 'true' ergibt. Erzeuge damit eine Liste der Simpsons deren Namen länger als 4 Buchstaben sind.
+1. Die Methode `filter` auf Listen nimmt einen Funktion vom Typ der Listenelemente auf Boolean und liefert eine Liste mit den Listenelementen für die, die Funktion 'true' ergibt. Erzeuge damit eine Liste der Simpsons deren Namen länger als 4 Buchstaben sind.
 
-Die Methode `groupBy` nimmt eine Funktion vom Listenelementtypen auf einen beliebigen anderen Typen. Was liefert diese Methode als Ergebnis? Versuche es zum Beispiel mit der Funktion die die Länge des Namens zurückgibt, oder mit der Funktion aus der vorrigen Aufgabe.
+2. Die Methode `groupBy` nimmt eine Funktion vom Listenelementtypen auf einen beliebigen anderen Typen. Was liefert diese Methode als Ergebnis? Versuche es zum Beispiel mit der Funktion die die Länge des Namens zurückgibt, oder mit der Funktion aus der vorrigen Aufgabe.
+	
+3. Die Methode `to` ist auf Integern definiert und liefert eine Liste (genauer einen `Range`) von der Zahl bis zum Argument:
+
+        > val numbers = 1 to 4
+        numbers: scala.collection.immutable.Range.Inclusive = Range(1, 2, 3, 4)
+
+    Was ist das erwartete Ergebnis von `numbers.map(_ to 4)`?
+	
+	Vergleiche es mit dem Ergebnis von `numbers.flatMap(_ to 4)`?
 	
 ## Tupel ##
 ## Option ##
