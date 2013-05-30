@@ -168,13 +168,33 @@ Wir lernen: zu viele in einander verschachtelte Funktionsdefinitionen und Deklar
 	Vergleiche es mit dem Ergebnis von `numbers.flatMap(_ to 4)`?
 	
 ## Tupel ##
+
+Of will man nicht einen sondern mehrere Werte zurückgeben. Natürlich kann man sich eine eigene Klasse dazu schreiben. Scala bietet aber schon vorgefertigte Klassen: Tupel. Tupel werden geschrieben wie in der Mathematik:
+
+
+
+    > (3, "Lara", Seq("Tochter", "schlau","süß", "selbstbewusst"))
+    res2: (Int, java.lang.String, Seq[java.lang.String]) = (3,Lara,List(Tochter, schlau, süß, selbstbewusst))
+	
+Wie man sieht sieht der Typ praktisch wie eine Instanz aus. 
+
+Tupel gibt es von 2 - 22 Elemente. Auf die einzelnen Element kann man einbasiert über `_<index>` zugreifen
+    
+    > res2._2
+    res3: java.lang.String = Lara
+	
+Warnung, in einigen Situationen möchte man ein Tupel schreiben, Scala interpretiert die Klammern aber als Klammern eines anderen Konstrukts: Klammern um Typdeklarationen, um eine Parameterliste oder ähnliches. Dann benötigt man doppelte Klammern: `(("blah", 23, true))`
+
 ## Option ##
 ## `val` vs `var` ##
 ## Sets Maps ##
 ## Klassen ##
+## Objekte ##
+## Case Classes ##
 
 ## Lügen, Halbwarheiten und Ergänzungen ##
 
 1. Scala gibt es nicht nur für die JVM, sondern auch für .Net ... in welchem Zustand es dort ist, muss jeder den es interessiert selber rausfinden.
 2. Es gibt auch mutable collections, aber die ignorieren wir hier, da immutable Collections in einem gewissen Sinne viel mächtiger sind.
 3. Seq erzeugt einfach verkettete Listen. Der :+ Operator sollte auf solchen Listen vermieden werden, da er sehr ineffizient ist. Man verwendet besser +: (prepend) oder die Klasse Vector
+4. `to` ist nicht wirklich auf Integer definiert. In Wirklichkeit werden durch eine implizite Konversion aus einem Integer eine Klasse gemacht, die die `to` Methode enthält. Aber das ist Material für den 2. Tag.
