@@ -169,7 +169,7 @@ Wir lernen: zu viele in einander verschachtelte Funktionsdefinitionen und Deklar
 	
 ## Option ##
 
-Java and other languages typically return `null` when one asks for something that does not exist or they throw an exception. In Scala the 
+In Java und anderen Sprachen wird meist ´null´ verwendet oder eine Exception geworfen, wenn ein Wert nicht existiert. In Scals gibt es einen eigenen Typ dafür: `Option`, mit dem Singleton Wert `None` und der Klasse `Some`
 
     > simpsons.head
     res2: java.lang.String = Homer
@@ -198,6 +198,8 @@ Java and other languages typically return `null` when one asks for something tha
     > Option("hello")
     res7: Option[java.lang.String] = Some(hello)
     
+In vielerlei Hinsicht verhält sich Option wie eine Liste, die nur 0 oder 1 Element haben kann. Insbesondere besitzt `Option` die Methoden `map´ und ´flatMap`
+	
 ## Tupel ##
 
 Of will man nicht einen sondern mehrere Werte zurückgeben. Natürlich kann man sich eine eigene Klasse dazu schreiben. Scala bietet aber schon vorgefertigte Klassen: Tupel. Tupel werden geschrieben wie in der Mathematik:
@@ -214,18 +216,54 @@ Tupel gibt es von 2 - 22 Elemente. Auf die einzelnen Element kann man einbasiert
 	
 Warnung, in einigen Situationen möchte man ein Tupel schreiben, Scala interpretiert die Klammern aber als Klammern eines anderen Konstrukts: Klammern um Typdeklarationen, um eine Parameterliste oder ähnliches. Dann benötigt man doppelte Klammern: `(("blah", 23, true))`
 
-## Sets Maps ##
+## Sets ##
+
+Neben Listen gibt es natürlich auch `Set`s. 
+
+    > Set()
+    res10: scala.collection.immutable.Set[Nothing] = Set()
+    
+    > Set(1,2,3,5,7,11)
+    res11: scala.collection.immutable.Set[Int] = Set(5, 1, 2, 7, 3, 11)
+    
+    > res11 + 23
+    res12: scala.collection.immutable.Set[Int] = Set(5, 1, 2, 7, 3, 11, 23)
+    
+    > res12.filter(_ % 2 == 0)
+    res13: scala.collection.immutable.Set[Int] = Set(2)
+    
+    > res12.toSeq
+    res14: Seq[Int] = ArrayBuffer(5, 1, 2, 7, 3, 11, 23)
+
+    > res12.toSet[Any]
+    res15: scala.collection.immutable.Set[Any] = Set(5, 1, 2, 7, 3, 11, 23)
+    
+    > res12.toSet[String]
+    <console>:10: error: type arguments [String] do not conform to method toSet's type parameter bounds [B >: Int]
+              res12.toSet[String]
+			  
+	> Set("alpha", "beta") + 3
+    <console>:8: error: type mismatch;
+     found   : Int(3)
+     required: java.lang.String
+                  Set("alpha", "beta") + 3
+                                     ^		
+    > Set("alpha", "beta")("gamma")
+    res18: Boolean = false									 
+
+## Maps ##	
+	
+## Klassen ##
+
+## `val` vs `var` ##
+## Objekte ##
+## Case Classes ##
 
 
 ## for Comprehension ##
 
 Die Kombination von `map´, ´flatMap´ und ´filter´ ist ziemlich mächtig und wird sehr häufig benötigt. Leider leidet die Lesbarkeit, wenn man davon zu viele aneinander hängt. Dafür gibt es for Comprehensions. Diese sehen aus wie eine For Schleife auf Steroiden. Es ist aber keine Schleife! Es sollten keine relevanten Seiteneffekte verwendet werden!
 
-
-## Klassen ##
-## Objekte ##
-## Case Classes ##
-## `val` vs `var` ##
 
 ## Lügen, Halbwarheiten und Ergänzungen ##
 
