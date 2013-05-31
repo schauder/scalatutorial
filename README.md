@@ -168,7 +168,36 @@ Wir lernen: zu viele in einander verschachtelte Funktionsdefinitionen und Deklar
 	Vergleiche es mit dem Ergebnis von `numbers.flatMap(_ to 4)`?
 	
 ## Option ##
+
+Java and other languages typically return `null` when one asks for something that does not exist or they throw an exception. In Scala the 
+
+    > simpsons.head
+    res2: java.lang.String = Homer
 	
+    > Seq().head
+    java.util.NoSuchElementException: head of empty list
+
+    > Seq().headOption
+    res9: Option[Nothing] = None	
+
+	> simpsons.headOption
+	res3: Option[java.lang.String] = Some(Homer)
+
+    > Some(23)
+    res4: Some[Int] = Some(23)
+
+    > None
+    res5: None.type = None
+
+	> val nn : String = null
+    nn: String = null
+	
+	> Option(nn)
+    res6: Option[String] = None
+    
+    > Option("hello")
+    res7: Option[java.lang.String] = Some(hello)
+    
 ## Tupel ##
 
 Of will man nicht einen sondern mehrere Werte zurückgeben. Natürlich kann man sich eine eigene Klasse dazu schreiben. Scala bietet aber schon vorgefertigte Klassen: Tupel. Tupel werden geschrieben wie in der Mathematik:
