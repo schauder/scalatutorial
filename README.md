@@ -252,8 +252,53 @@ Neben Listen gibt es natürlich auch `Set`s.
     res18: Boolean = false									 
 
 ## Maps ##	
+    
+	
+    > val letters = Map("a" -> "alpha", "b" -> "beta", "g" -> "gamma")
+    letters: scala.collection.immutable.Map[java.lang.String,java.lang.String] = Map(a -> alpha, b -> beta, g -> gamma)
+    
+Der Pfeil ist nur eine Alternative Schreibweise für Tupel
+	
+    > "x" -> 23
+    res0: (java.lang.String, Int) = (x,23)
+    
+    > letters("b")
+    res1: java.lang.String = beta
+    
+    > letters.get("b")
+    res3: Option[java.lang.String] = Some(beta)
+    
+    > letters.toSeq
+    res5: Seq[(java.lang.String, java.lang.String)] = ArrayBuffer((a,alpha), (b,beta), (g,gamma))
+    
+    
+    > letters.get("x")
+    res6: Option[java.lang.String] = None
+    
+Es lassen sich einfach Default Funktionen oder Default Werte definieren
+	
+    > letters.withDefault(identity)("x")
+    res15: java.lang.String = x
+    
+    > letters.withDefaultValue("unknown")("x")
+    res17: java.lang.String = unknown
+
+Bezüglich neuer Einträge verhält sich eine Map wie ein Set von Tupel
+	
+    > letters + (("e","eta"))
+    res19: scala.collection.immutable.Map[java.lang.String,java.lang.String] = Map(a -> alpha, b -> beta, g -> gamma, e -> eta)
+    	
+    
+    > letters + ("e"->"eta")
+    res21: scala.collection.immutable.Map[java.lang.String,java.lang.String] = Map(a -> alpha, b -> beta, g -> gamma, e -> eta)	
 	
 ## Klassen ##
+
+Klassen werden in der folgenden Form definiert:
+
+    class Name {
+	    //
+	}
 
 ## `val` vs `var` ##
 ## Objekte ##
